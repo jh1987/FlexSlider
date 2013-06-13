@@ -7,6 +7,9 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  *
  * Contributing author: Tyler Smith (@mbmufffin)
+ * https://github.com/woothemes/FlexSlider
+ * Modified by: Jonas Hillebrecht (@jh1987)
+ * https://github.com/jh1987/FlexSlider
  */
 
 ;(function ($) {
@@ -125,7 +128,7 @@
         if (touch && vars.touch) methods.touch();
 
         // FADE&&SMOOTHHEIGHT || SLIDE:
-        if (!fade || (fade && vars.smoothHeight)) $(window).bind("resize focus", methods.resize);
+        if (!fade || (fade && vars.smoothHeight)) $(window).bind("resize focus orientationchange", methods.resize);
 
 
         // API: start() Callback
@@ -711,6 +714,9 @@
                        (slider.maxW < slider.w) ? (slider.w - (slideMargin * maxItems))/maxItems :
                        (vars.itemWidth > slider.w) ? slider.w : vars.itemWidth;
         slider.visible = Math.floor(slider.w/(slider.itemW + slideMargin));
+		if((slider.visible*slider.itemW)<slider.w && slider.visible<slider.maxW){
+			slider.itemW=slider.w/(slider.visible);
+		}
         slider.move = (vars.move > 0 && vars.move < slider.visible ) ? vars.move : slider.visible;
         slider.pagingCount = Math.ceil(((slider.count - slider.visible)/slider.move) + 1);
         slider.last =  slider.pagingCount - 1;
